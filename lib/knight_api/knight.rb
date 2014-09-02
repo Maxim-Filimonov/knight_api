@@ -1,9 +1,11 @@
 require 'knight_api/point'
 require 'knight_api/coordinate'
 require 'knight_api/path'
+require 'knight_api/diagnostic'
 
 module KnightApi
   class Knight
+    include Diagnostic
     attr_reader :start_position
     def initialize(opts={})
       @start_position = translate_coordinate(opts[:start])
@@ -56,9 +58,6 @@ module KnightApi
       end
     end
 
-    def debug(message)
-      puts message if @debug
-    end
 
     def possible_moves_from(position)
       possible_moves = []
