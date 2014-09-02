@@ -45,6 +45,22 @@ describe KnightApi::Coordinate do
     end
   end
 
+  describe '==' do
+    it 'returns true when other coordinate has the same value' do
+      other = described_class.new([], 'a')
+      subject = described_class.new(['a'], 'a')
+
+      expect(subject == other).to eql(true)
+    end
+
+    it 'return false when other coordinate has different value' do
+      other = described_class.new([], 'b')
+      subject = described_class.new(['a'], 'a')
+
+      expect(subject == other).to_not eql(true)
+    end
+  end
+
   describe '#valid?' do
     it 'returns false when value is not in range' do
       subject = described_class.new([], 'a')

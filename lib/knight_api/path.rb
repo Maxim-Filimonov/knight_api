@@ -24,5 +24,13 @@ module KnightApi
     def valid=(value)
       @valid = value
     end
+
+    def contains?(move)
+      moves.include?(move)
+    end
+
+    def number_of_moves
+      moves.length
+    end
   end
 end

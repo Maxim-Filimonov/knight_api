@@ -31,4 +31,34 @@ describe KnightApi::Path do
       expect(subject.to_s).to eq('move1 - move2 - move3')
     end
   end
+
+  describe '#contains' do
+    it 'returns true when move is in the list of moves' do
+      subject = described_class.new
+      subject.add('move1')
+
+      expect(subject.contains?('move1')).to eq(true)
+    end
+
+    it 'returns false when move is not in the list of moves' do
+      subject = described_class.new
+      subject.add('move1')
+
+      expect(subject.contains?('not a move')).to eq(false)
+    end
+  end
+
+  describe '#number_of_moves' do
+    it 'returns 0 when there is no moves' do
+      expect(subject.number_of_moves).to eq(0)
+    end
+
+    it 'returns number of moves in path' do
+      subject = described_class.new
+
+      subject.add('move1')
+
+      expect(subject.number_of_moves).to eq(1)
+    end
+  end
 end

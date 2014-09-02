@@ -19,6 +19,9 @@ module KnightApi
     def eql?(other)
       value == other.value
     end
+    def ==(other)
+      eql?(other)
+    end
 
     def valid?
       !range.index(value).nil?
