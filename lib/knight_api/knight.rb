@@ -1,3 +1,7 @@
+require 'knight_api/point'
+require 'knight_api/coordinate'
+require 'knight_api/path'
+
 module KnightApi
   class Knight
     attr_reader :start_position
@@ -98,61 +102,4 @@ module KnightApi
   end
 end
 
-class Path
-  attr_reader :moves
-  def initialize(parent_path = nil)
-    @moves = []
-    @valid = false
-    if parent_path
-      @moves.concat(parent_path.moves)
-    end
-  end
 
-  def add(move)
-    @moves << move
-  end
-
-  def to_s
-    @moves.join(" - ")
-  end
-
-  def valid?
-    @valid
-  end
-  def valid=(value)
-    @valid = value
-  end
-end
-
-class Point < Struct.new(:x, :y)
-  def to_s
-    [x,y].join("")
-  end
-end
-
-class Coordinate
-  attr_reader :range, :value
-  def initialize(range, value)
-    @range, @value = range.to_a, value
-  end
-
-  def +(new_value)
-    index_of_current_value = range.index(value)
-    index_of_new_value = index_of_current_value + new_value
-    if index_of_new_value >= 0
-      range[index_of_new_value]
-    end
-  end
-
-  def to_s
-    value
-  end
-
-  def eql?(other)
-    value == other.value
-  end
-
-  def valid?
-    !range.index(value).nil?
-  end
-end

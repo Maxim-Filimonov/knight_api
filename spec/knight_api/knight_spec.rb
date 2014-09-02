@@ -27,7 +27,7 @@ describe KnightApi::Knight do
     end
 
     it 'finds multiple routes within three steps' do
-      subject = described_class.new(start: 'a1', debug: true)
+      subject = described_class.new(start: 'a1')
 
       routes = subject.routes_to('d3', limit: 3)
 
