@@ -4,26 +4,31 @@ module KnightApi
     POINT = Struct.new(:x, :y)
     def initialize(opts={})
       @start_position = translate_coordinate(opts[:start])
+      @debug = opts[:debug]
     end
 
 
-    def routes_to(destination)
+    def routes_to(destination, opts={})
       destination_position = translate_coordinate(destination)
       debug("Looking for path to #{destination_position} from #{start_position}")
 
-      possible_routes = []
-      possible_routes << move_to(position: start_position, x: 1, y: 2)
-      possible_routes << move_to(position: start_position, x: 2, y: 1)
+      possible_moves = possible_moves_from(start_position)
 
-      routes = possible_routes.select { |route| route.eql?(destination_position)}
-      found_routes = [translate_coordinate_back(start_position)]
-      routes.inject([]) { |sum, route|
-        sum << [translate_coordinate_back(start_position), translate_coordinate_back(route)]
+      moves = possible_moves.select { |route| route.eql?(destination_position)}
+      found_moves = [translate_coordinate_back(start_position)]
+      moves.inject([]) { |sum, move|
+        sum << [translate_coordinate_back(start_position), translate_coordinate_back(move)]
         sum
       }
     end
 
     private
+    def possible_moves_from(position)
+      possible_moves = []
+      possible_moves << move_to(position: position, x: 1, y: 2)
+      possible_moves << move_to(position: position, x: 2, y: 1)
+      possible_moves << move_to(position: position, x: 2, y: -1)
+    end
     def debug(message)
       puts message if @debug
     end
