@@ -9,11 +9,11 @@ module KnightApi
 
     def routes_to(destination)
       destination_position = translate_coordinate(destination)
-      puts "Looking for path to #{destination_position} from #{start_position}"
+      debug("Looking for path to #{destination_position} from #{start_position}")
 
       possible_routes = []
-      possible_routes << point(x: start_position.x + 1, y: start_position.y + 2)
-      possible_routes << point(x: start_position.x + 2, y: start_position.y + 1)
+      possible_routes << move_to(position: start_position, x: 1, y: 2)
+      possible_routes << move_to(position: start_position, x: 2, y: 1)
 
       routes = possible_routes.select { |route| route.eql?(destination_position)}
       found_routes = [translate_coordinate_back(start_position)]
@@ -24,7 +24,21 @@ module KnightApi
     end
 
     private
+    def debug(message)
+      puts message if @debug
+    end
+
+    def move_to(opts={})
+      position = opts.fetch(:position)
+      x = opts.fetch(:x)
+      y = opts.fetch(:y)
+      point(x: position.x + x, y: position.y + y)
+    end
+
     def point(coords)
+      x_coords = ('a'..'h')
+      coords.fetch(:x)
+
       POINT.new(coords.fetch(:x), coords.fetch(:y))
     end
 
