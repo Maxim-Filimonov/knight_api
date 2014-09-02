@@ -3,7 +3,7 @@ require 'knight_api/knight'
 describe KnightApi::Knight do
   describe '#routes_to' do
     it 'finds single route within one step' do
-      subject = described_class.new(start: 'a1', debug: true)
+      subject = described_class.new(start: 'a1')
 
       routes = subject.routes_to('b3', limit: 1)
 
@@ -39,9 +39,9 @@ describe KnightApi::Knight do
     end
 
     it 'finds the example routes' do
-      subject = described_class.new(start: 'a1', debug: true)
+      subject = described_class.new(start: 'a1')
 
-      routes = subject.routes_to('d4', limit: 6)
+      routes = subject.routes_to('d4', limit: 5)
 
       expect(routes).to contain_exactly(
                           %w(a1 b3 d4),
