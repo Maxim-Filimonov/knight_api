@@ -37,24 +37,43 @@ module KnightApi
 
     def point(coords)
       x_coords = ('a'..'h')
-      coords.fetch(:x)
+      y_coords = ('1'..'8')
+      x = Coordinate.new(x_coords, coords.fetch(:x))
+      y = Coordinate.new(y_coords, coords.fetch(:y))
 
-      POINT.new(coords.fetch(:x), coords.fetch(:y))
+      POINT.new(x, y)
     end
 
     def translate_coordinate(coordinate)
       translator = /(?<x>\w+)(?<y>\d+)/
       match = translator.match(coordinate)
-      x_coords = ('a'..'h').to_a
-      x = x_coords.index(match[:x])
 
-      point(x: x, y: match[:y].to_i)
+      point(x: match[:x], y: match[:y])
     end
 
     def translate_coordinate_back(point)
-      x_coords = ('a'..'h').to_a
-      x = x_coords[point.x]
-      "#{x}#{point.y}"
+      "#{point.x}#{point.y}"
     end
+  end
+end
+
+class Coordinate
+  attr_reader :range, :value
+  def initialize(range, value)
+    @range, @value = range.to_a, value
+  end
+
+  def +(new_value)
+    index_of_current_value = range.index(value)
+    index_of_new_value = index_of_current_value + new_value
+    range[index_of_new_value]
+  end
+
+  def to_s
+    value
+  end
+
+  def eql?(other)
+    value == other.value
   end
 end
