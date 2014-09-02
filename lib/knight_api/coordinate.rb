@@ -9,9 +9,7 @@ module KnightApi
     def +(new_value)
       index_of_current_value = range.index(value)
       index_of_new_value = index_of_current_value + new_value
-      if index_of_new_value >= 0
-        range[index_of_new_value]
-      end
+      range[index_of_new_value] if index_of_new_value >= 0
     end
 
     def to_s

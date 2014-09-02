@@ -14,12 +14,13 @@ module KnightApi
     end
 
     def to_s
-      @moves.join(" - ")
+      @moves.join(' - ')
     end
 
     def valid?
       @valid
     end
+
     def valid=(value)
       @valid = value
     end
