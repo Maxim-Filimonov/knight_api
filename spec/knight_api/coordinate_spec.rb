@@ -10,7 +10,7 @@ describe KnightApi::Coordinate do
   end
 
   describe '#+' do
-    subject { described_class.new(['a','b','c'], 'a') }
+    subject { described_class.new(%w(a b c), 'a') }
 
     it 'uses supplied value to determine next index' do
       result = subject + 1
