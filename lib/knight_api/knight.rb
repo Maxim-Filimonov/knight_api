@@ -14,23 +14,37 @@ module KnightApi
 
       possible_moves = possible_moves_from(start_position)
 
-      moves = possible_moves.select { |route| route.eql?(destination_position)}
-      found_moves = [translate_coordinate_back(start_position)]
-      moves.inject([]) { |sum, move|
-        sum << [translate_coordinate_back(start_position), translate_coordinate_back(move)]
+      found_moves = []
+      possible_moves.each {|move|
+        debug("Checking move #{move}")
+        if(move.eql?(destination_position))
+          found_moves << [move]
+        else
+          child_possible_moves = possible_moves_from(move)
+          child_possible_moves.each {|child_move|
+            debug("Checking move #{child_move}")
+            if(child_move.eql?(destination_position))
+              found_moves << [move, child_move]
+            end
+          }
+        end
+      }
+      found_moves.inject([]) { |sum, moves|
+        sum << [translate_coordinate_back(start_position), moves.map {|m| translate_coordinate_back(m)}].flatten
         sum
       }
     end
 
     private
+    def debug(message)
+      puts message if @debug
+    end
+
     def possible_moves_from(position)
       possible_moves = []
       possible_moves << move_to(position: position, x: 1, y: 2)
       possible_moves << move_to(position: position, x: 2, y: 1)
       possible_moves << move_to(position: position, x: 2, y: -1)
-    end
-    def debug(message)
-      puts message if @debug
     end
 
     def move_to(opts={})

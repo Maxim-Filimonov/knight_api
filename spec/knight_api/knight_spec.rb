@@ -11,7 +11,7 @@ describe KnightApi::Knight do
     end
 
     it 'finds single route within two steps' do
-      subject = described_class.new(start: 'a1', debug: true)
+      subject = described_class.new(start: 'a1')
 
       routes = subject.routes_to('e1', limit: 2)
 
