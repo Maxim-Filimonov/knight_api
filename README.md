@@ -20,7 +20,10 @@ a) an array of possible series of moves for a knight to get from start to end sq
 [‘a1-b3-d4’, ‘a1-c2-b4’, ...]
 
 NOTE:
-Each square the knight travels should be listed with dashes between. There should be no looping paths with the same square repeated again in the same series of moves. The paths should be in order from shortest to longest. Ignore any paths which are longer than 6 squares, including the start and end square.
+Each square the knight travels should be listed with dashes between.
+- There should be no looping paths with the same square repeated again in the same series of moves.
+- The paths should be in order from shortest to longest.
+- Ignore any paths which are longer than 6 squares, including the start and end square.
 
 b) An empty array if there is no path within 6 squares.
 
