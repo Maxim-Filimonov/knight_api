@@ -56,5 +56,14 @@ describe KnightApi::Knight do
                           %w(a1 b3 c5 e6 d4)
                         )
     end
+
+    it 'sorts routes by they length' do
+      subject = described_class.new(start: 'a1')
+
+      routes = subject.routes_to('d4', max_positions: 6)
+      result_order = routes.map(&:length)
+
+      expect(result_order).to eq(result_order.sort)
+    end
   end
 end

@@ -20,7 +20,7 @@ module KnightApi
 
       check_possible_moves(path, initial_move)
 
-      valid_paths
+      valid_paths.sort_by { |p| p.number_of_moves }
     end
 
     private

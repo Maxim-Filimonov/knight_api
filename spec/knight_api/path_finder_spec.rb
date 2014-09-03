@@ -44,6 +44,18 @@ describe KnightApi::PathFinder do
 
         expect(subject.length).to eq(0)
       end
+
+      it 'sorts by path length' do
+        allow(mover).to receive(:possible_moves_from).with('initial').and_return(['long', 'short'])
+        allow(mover).to receive(:possible_moves_from).with('short').and_return(['dest'])
+        allow(mover).to receive(:possible_moves_from).with('long').and_return(['middle'])
+        allow(mover).to receive(:possible_moves_from).with('middle').and_return(['dest'])
+
+        subject = pathfinder.find_valid_paths
+
+        expect(subject.first.moves).to eq(['initial', 'short', 'dest'])
+        expect(subject.last.moves).to eq(['initial', 'long', 'middle', 'dest'])
+      end
     end
   end
 end
