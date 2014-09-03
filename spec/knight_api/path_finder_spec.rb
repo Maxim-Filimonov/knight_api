@@ -35,12 +35,10 @@ describe KnightApi::PathFinder do
         expect(subject.length).to eq(0)
       end
 
-      it 'respects the limit on number of moves' do
-        allow(mover).to receive(:possible_moves_from).with('initial').and_return(['a'])
-        allow(mover).to receive(:possible_moves_from).with('a').and_return(['b'])
-        allow(mover).to receive(:possible_moves_from).with('b').and_return(['c'])
-        allow(mover).to receive(:possible_moves_from).with('c').and_return(['dest'])
-        pathfinder.max_moves = 3
+      it 'does not allow path with number of moves the same as max positions' do
+        allow(mover).to receive(:possible_moves_from).with('initial').and_return(['middle'])
+        allow(mover).to receive(:possible_moves_from).with('middle').and_return(['dest'])
+        pathfinder.max_positions = 2
 
         subject = pathfinder.find_valid_paths
 

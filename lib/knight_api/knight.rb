@@ -20,7 +20,7 @@ module KnightApi
 
       path_finder = PathFinder.new(initial_move: start_position,
                                    destination: destination_position,
-                                   max_moves: opts.fetch(:limit, 6),
+                                   max_positions: opts.fetch(:max_positions, 6),
                                    mover: knight_mover,
                                    debug: @debug)
 

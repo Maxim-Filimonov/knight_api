@@ -4,13 +4,13 @@ module KnightApi
   class PathFinder
     include Diagnostic
     attr_reader :valid_paths, :initial_move, :destination, :mover
-    attr_accessor :max_moves
+    attr_accessor :max_positions
     def initialize(opts={})
       @initial_move = opts.fetch(:initial_move)
       @destination = opts.fetch(:destination)
       @mover = opts.fetch(:mover)
       @valid_paths = []
-      @max_moves = opts[:max_moves]
+      @max_positions = opts[:max_positions]
       @debug = opts[:debug]
     end
 
@@ -25,7 +25,7 @@ module KnightApi
 
     private
     def check_path(path, next_move)
-      if non_recursive_path?(path, next_move) && under_max_moves_limit?(path)
+      if non_recursive_path?(path, next_move) && under_max_positions_limit?(path)
         path.add(next_move)
         debug("Checking path #{path}")
         if next_move.eql?(destination)
@@ -43,9 +43,9 @@ module KnightApi
       not path.contains?(next_move)
     end
 
-    def under_max_moves_limit?(path)
-      if (max_moves || 0) > 0
-        path.number_of_moves <= max_moves
+    def under_max_positions_limit?(path)
+      if (max_positions || 0) > 0
+        path.number_of_moves < max_positions
       else
         true
       end
