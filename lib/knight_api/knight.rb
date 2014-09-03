@@ -25,16 +25,8 @@ module KnightApi
                                    debug: @debug)
 
       valid_paths = path_finder.find_valid_paths
-      found_moves = []
-      valid_paths.each do |path|
-        found_moves << path.moves
-      end
-      result = found_moves.inject([]) { |sum, moves|
-        sum << [moves.map {|m| m.to_s}].flatten
-        sum
-      }
-      result
-
+      found_moves = valid_paths.map(&:moves)
+      found_moves.map {|moves| moves.map(&:to_s)}
     end
 
     def translate_coordinate(coordinate)
