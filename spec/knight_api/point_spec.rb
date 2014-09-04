@@ -26,4 +26,47 @@ describe KnightApi::Point do
       end
     end
   end
+
+  describe '.from_s' do
+    context 'when coordinates are valid' do
+      it 'returns point with coords set' do
+        subject = described_class.from_s('a1')
+
+        expect(subject.x.value).to eq('a')
+        expect(subject.y.value).to eq('1')
+      end
+    end
+    context 'when coordinates are not valid' do
+      it 'returns no point' do
+        subject = described_class.from_s('not_valid')
+
+        expect(subject).to be_nil
+      end
+    end
+    context 'when coordinate is out of border' do
+      it 'returns no point' do
+        subject = described_class.from_s('a20')
+
+        expect(subject).to be_nil
+      end
+    end
+  end
+
+  describe '.from_coordinates' do
+    context 'when coordinates are valid' do
+      it 'returns point with coords set' do
+        subject = described_class.from_coordinates(x: 'a', y: '1')
+
+        expect(subject.x.value).to eq('a')
+        expect(subject.y.value).to eq('1')
+      end
+    end
+    context 'when coordinates are not valid' do
+      it 'returns no point' do
+        subject = described_class.from_coordinates(x: 'y', y: '42')
+
+        expect(subject).to be_nil
+      end
+    end
+  end
 end

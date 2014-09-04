@@ -30,11 +30,7 @@ module KnightApi
       KnightResult.success(paths: valid_paths)
     end
 
-    def translate_coordinate(coordinate)
-      translator = /(?<x>\w+)(?<y>\d+)/
-      match = translator.match(coordinate)
 
-      knight_mover.point(x: match[:x], y: match[:y])
     end
   end
 end
