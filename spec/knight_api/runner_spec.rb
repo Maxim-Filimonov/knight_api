@@ -13,5 +13,9 @@ describe KnightApi::Runner do
 
       expect(result).to include("invalid")
     end
+
+    it 'can be run without limit' do
+      expect{ subject.run(start: 'x', destination: 'y') }.to_not raise_error
+    end
   end
 end
