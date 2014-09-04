@@ -1,9 +1,14 @@
 require 'knight_api/knight'
 
 describe KnightApi::Knight do
+  describe '#initialize' do
+    it 'is valid' do
+      expect(subject).to be_valid
+    end
+  end
   describe '#routes_to' do
     it 'finds single route within one step' do
-      subject = described_class.new(start: 'a1')
+      subject = described_class.new(start: 'a1', debug: true)
 
       routes = subject.routes_to('b3', max_positions: 2).to_a
 
@@ -64,6 +69,17 @@ describe KnightApi::Knight do
       result_order = routes.map(&:length)
 
       expect(result_order).to eq(result_order.sort)
+    end
+
+    context 'when trying to break the knight' do
+      it 'returns fail when start is not defined' do
+        described_class.new(start: 'bogus')
+
+        result = subject.routes_to('d4')
+
+        expect(result).to_not be_valid
+        expect(result.error_messages.first).to include('start')
+      end
     end
   end
 end
