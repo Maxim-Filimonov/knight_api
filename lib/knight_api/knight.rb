@@ -6,7 +6,8 @@ require 'knight_api/knight_result'
 module KnightApi
   class Knight
     include Diagnostic
-    attr_reader :start_position, :destination_position, :knight_mover, :errors, :start
+    attr_reader :start_position, :destination_position,
+      :knight_mover, :errors, :start
 
     def initialize(opts={})
       @knight_mover = KnightMover.new
@@ -44,8 +45,17 @@ module KnightApi
 
     private
     def validate(destination, opts)
-      errors << "invalid start coordinate #{start}" unless start_position
-      errors << "invalid destination coordinate #{destination}" unless destination_position
+      if start == destination
+        errors << "bad request as any path will have #{start} repeated"
+      end
+
+      unless start_position
+        errors << "invalid start coordinate #{start}"
+      end
+
+      unless destination_position
+        errors << "invalid destination coordinate #{destination}"
+      end
     end
   end
 end

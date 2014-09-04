@@ -8,7 +8,7 @@ describe KnightApi::Knight do
   end
   describe '#routes_to' do
     it 'finds single route within one step' do
-      subject = described_class.new(start: 'a1', debug: true)
+      subject = described_class.new(start: 'a1')
 
       routes = subject.routes_to('b3', max_positions: 2).to_a
 
@@ -73,12 +73,30 @@ describe KnightApi::Knight do
 
     context 'when trying to break the knight' do
       it 'returns fail when start is not defined' do
-        described_class.new(start: 'bogus')
+        subject = described_class.new(start: 'bogus')
 
         result = subject.routes_to('d4')
 
         expect(result).to_not be_valid
         expect(result.error_messages.first).to include('start')
+      end
+
+      it 'returns fail when destination is not defined' do
+        subject = described_class.new(start: 'a1')
+
+        result = subject.routes_to('bogus')
+
+        expect(result).to_not be_valid
+        expect(result.error_messages.first).to include('destination')
+      end
+
+      it 'returns fail when start and destination are the same' do
+        subject = described_class.new(start: 'a1')
+
+        result = subject.routes_to('a1')
+
+        expect(result).to_not be_valid
+        expect(result.error_messages.first).to include('repeated')
       end
     end
   end
