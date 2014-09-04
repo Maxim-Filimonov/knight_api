@@ -1,4 +1,25 @@
 ## A Knight’s API
+## Install dependencies
+```
+bundle install
+```
+
+## Tests
+```
+rspec
+```
+
+## Console
+```
+ruby run.rb -h
+ruby run.rb -s a1 -d d3
+```
+
+Alternatively
+```
+chmod +x ./run.rb
+./run.rb -s a1 -d d3
+```
 
 ### Givens
 
