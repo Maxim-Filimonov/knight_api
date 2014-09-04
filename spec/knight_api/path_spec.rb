@@ -28,7 +28,7 @@ describe KnightApi::Path do
       subject.add('move2')
       subject.add('move3')
 
-      expect(subject.to_s).to eq('move1 - move2 - move3')
+      expect(subject.to_s).to eq('move1-move2-move3')
     end
   end
 

@@ -14,7 +14,7 @@ module KnightApi
     end
 
     def to_s
-      @moves.join(' - ')
+      @moves.join('-')
     end
 
     def valid?
