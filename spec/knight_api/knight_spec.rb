@@ -5,7 +5,7 @@ describe KnightApi::Knight do
     it 'finds single route within one step' do
       subject = described_class.new(start: 'a1')
 
-      routes = subject.routes_to('b3', max_positions: 2)
+      routes = subject.routes_to('b3', max_positions: 2).to_a
 
       expect(routes).to contain_exactly(%w(a1 b3))
     end
@@ -13,7 +13,7 @@ describe KnightApi::Knight do
     it 'finds single route within two steps' do
       subject = described_class.new(start: 'a1')
 
-      routes = subject.routes_to('e1', max_positions: 3)
+      routes = subject.routes_to('e1', max_positions: 3).to_a
 
       expect(routes).to contain_exactly(%w(a1 c2 e1))
     end
@@ -21,7 +21,7 @@ describe KnightApi::Knight do
     it 'finds multiple routes within two steps' do
       subject = described_class.new(start: 'a1')
 
-      routes = subject.routes_to('d4', max_positions: 3)
+      routes = subject.routes_to('d4', max_positions: 3).to_a
 
       expect(routes).to contain_exactly(%w(a1 b3 d4), %w(a1 c2 d4))
     end
@@ -29,7 +29,7 @@ describe KnightApi::Knight do
     it 'finds multiple routes within three steps' do
       subject = described_class.new(start: 'a1')
 
-      routes = subject.routes_to('d3', max_positions: 4)
+      routes = subject.routes_to('d3', max_positions: 4).to_a
 
       expect(routes).to contain_exactly(
       %w(a1 b3 c5 d3),
@@ -41,7 +41,7 @@ describe KnightApi::Knight do
     it 'finds the example routes' do
       subject = described_class.new(start: 'a1')
 
-      routes = subject.routes_to('d4', max_positions: 6)
+      routes = subject.routes_to('d4', max_positions: 6).to_a
 
       expect(routes).to contain_exactly(
                           %w(a1 b3 d4),
@@ -60,7 +60,7 @@ describe KnightApi::Knight do
     it 'sorts routes by they length' do
       subject = described_class.new(start: 'a1')
 
-      routes = subject.routes_to('d4', max_positions: 6)
+      routes = subject.routes_to('d4', max_positions: 6).to_a
       result_order = routes.map(&:length)
 
       expect(result_order).to eq(result_order.sort)

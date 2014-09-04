@@ -1,6 +1,7 @@
 require 'knight_api/path_finder'
 require 'knight_api/knight_mover'
 require 'knight_api/diagnostic'
+require 'knight_api/knight_result'
 
 module KnightApi
   class Knight
@@ -26,7 +27,7 @@ module KnightApi
 
       valid_paths = path_finder.find_valid_paths
       debug("Found paths: #{valid_paths.map(&:to_s).join(",")}")
-      found_moves = valid_paths.map { |path| path.moves.map(&:to_s) }
+      KnightResult.success(paths: valid_paths)
     end
 
     def translate_coordinate(coordinate)
